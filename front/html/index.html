@@ -83,30 +83,43 @@
         </div>
       </div>
     </footer>
-  <script src="../js/script.js"></script>
+  <!-- <script src="../js/script.js"></script> introuvable ?? -->
   <script>
-        fetch("http://localhost:3000/api/products")
-    .then(res => res.json())
-    .then(products => {
-       for (let i = 0; i < products.length; i++)
-       {const product = products[i];
+    fetch("http://localhost:3000/api/products")
+      .then(res => res.json())
+      .then(products => {
+        for (let i = 0; i < products.length; i++){
+          const product = products[i];
+          console.log(product);
+          let productLink = "product.html?productId=" + product._id;
+          let linkProductContainer = document.createElement("a");
+        
+          linkProductContainer.setAttribute("href", productLink);
 
-    let linkProductContainer = document.createElement("a");
-    let articleProduct = document.createElement ("article");
-    linkProductContainer.appendChild(articleProduct);
-    
-    let name = document.createElement("h3");
-    name.innerHTML = product.name;
-    name.classList.add("productName");
-    articleProduct.appendChild(name);
 
-    let description = document.createElement("p");
-    description.innerHTML = product.description;
-    description.classList.add("productDescription");
-    articleProduct.appendChild(description);
+          let articleProduct = document.createElement ("article");
+          linkProductContainer.appendChild(articleProduct);
+          
+          let name = document.createElement("h3");
+          name.innerHTML = product.name;
+          name.classList.add("productName");
+          articleProduct.appendChild(name);
 
-    document.getElementById("items").appendChild(linkProductContainer);
-  }})
+          let imageUrl = document.createElement("img");
+          // imageUrl.src = product.imageUrl;
+          imageUrl.setAttribute("src", product.imageUrl)
+          imageUrl.setAttribute("alt", product.altTxt)
+          articleProduct.appendChild(imageUrl);
+        
+
+          let description = document.createElement("p");
+          description.innerHTML = product.description;
+          description.classList.add("productDescription");
+          articleProduct.appendChild(description);
+
+          document.getElementById("items").appendChild(linkProductContainer);
+        }
+      })
    
     
    

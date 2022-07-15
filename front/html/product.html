@@ -111,5 +111,24 @@
       </div>
     </footer>
   <script src="../js/product.js"></script>
+  <script>
+    let url = new URL(location.href);
+    url.searchParams.get("productId")
+
+    fetch("http://localhost:3000/api/products")
+      .then(res => res.json())
+      .then(products => {
+        for (let i = 0; i < products.length; i++){
+          const product = products[i];
+          console.log(product);
+    
+        document.getElementById("title").innerHTML=product.name;
+        document.getElementById("price").innerHTML=product.price;
+        document.getElementById("description").innerHTML=product.description;
+        }
+      })
+   
+  </script>
+
   </body>
 </html>
