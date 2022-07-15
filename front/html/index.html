@@ -95,13 +95,15 @@
     let articleProduct = document.createElement ("article");
     linkProductContainer.appendChild(articleProduct);
     
-    let productName = document.createElement("h3");
-    productName.innerHTML = product.productName;
-    articleProduct.appendChild(productName);
+    let name = document.createElement("h3");
+    name.innerHTML = product.name;
+    name.classList.add("productName");
+    articleProduct.appendChild(name);
 
-    let productDescription = document.createElement("p");
-    productDescription.innerHTML = product.productDescription;
-    articleProduct.appendChild(productDescription);
+    let description = document.createElement("p");
+    description.innerHTML = product.description;
+    description.classList.add("productDescription");
+    articleProduct.appendChild(description);
 
     document.getElementById("items").appendChild(linkProductContainer);
   }})
