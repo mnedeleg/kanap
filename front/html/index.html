@@ -84,5 +84,32 @@
       </div>
     </footer>
   <script src="../js/script.js"></script>
+  <script>
+        fetch("http://localhost:3000/api/products")
+    .then(res => res.json())
+    .then(products => {
+       for (let i = 0; i < products.length; i++)
+       {const product = products[i];
+
+    let linkProductContainer = document.createElement("a");
+    let articleProduct = document.createElement ("article");
+    linkProductContainer.appendChild(articleProduct);
+    
+    let productName = document.createElement("h3");
+    productName.innerHTML = product.productName;
+    articleProduct.appendChild(productName);
+
+    let productDescription = document.createElement("p");
+    productDescription.innerHTML = product.productDescription;
+    articleProduct.appendChild(productDescription);
+
+    document.getElementById("items").appendChild(linkProductContainer);
+  }})
+   
+    
+   
+  </script> 
+
+  
   </body>
 </html>
