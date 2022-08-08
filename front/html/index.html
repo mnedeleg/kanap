@@ -87,15 +87,13 @@
   <script>
 fetch("http://localhost:3000/api/products")
 //.then(function(response){  return response.json();
-  .then(res => res.json()) //promesse 1
+  .then(res => res.json()) 
   .then(products => {
-    console.log(products) //promesse 2 ==> où avons-nous défini "products" ??
-    for (let i = 0; i < products.length; i++){ //parcours tableau "products" en utilisant la boucle / 0 + itération etc..
-      const product = products[i]; // création de la constante product qui est égale au tableau nommé "products"
-      console.log(product); // pourquoi il est indiqué dans la console : "expression not available" ?
-    ///////////////////////////////////
-    // maintenant qu'on a les infos, il faut créer les éléments pour révéler ces infos
-    // la création de tous ces nouveaux éléments font partie de la promesse (2)
+    console.log(products) 
+    for (let i = 0; i < products.length; i++){ 
+      const product = products[i]; 
+      console.log(product); 
+  
 
     let articleProduct = document.createElement ("article");
 
@@ -116,18 +114,12 @@ fetch("http://localhost:3000/api/products")
 
 
     let productLink = "product.html?productId=" + product._id; 
-    // d'où vient ce sous-tiret ? qu'est-ce que veux-vraiment dire product._id
-    // il renvoie à la constante "product" qui elle-meme renvoie au tableau ??
-    // Comment définissions-nous le ?productId ? 
-    //Est-ce le simple fait que l'id soit mentionné dans l'API qu'on peut nommer ?productId ?
 
     let linkProductContainer = document.createElement("a");
     linkProductContainer.appendChild(articleProduct);
-    linkProductContainer.setAttribute("href", productLink); // L'url renvoie la variable productLink = qui renvoie productID
+    linkProductContainer.setAttribute("href", productLink); 
     document.getElementById("items").appendChild(linkProductContainer); 
-    // selection de l'id "items"
-    // Comment une variable peut-elle être l'enfant d'un id ?
-    //ok..LinkProductContainer = a
+
 
   }
 })
