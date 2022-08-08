@@ -49,6 +49,7 @@
             <div class="item__img">
               <!-- <img src="../images/logo.png" alt="Photographie d'un canapé"> -->
             </div>
+        
             <div class="item__content">
 
               <div class="item__content__titlePrice">
@@ -112,21 +113,60 @@
     </footer>
   <script src="../js/product.js"></script>
   <script>
-    let url = new URL(location.href);
-    url.searchParams.get("productId")
-
-    fetch("http://localhost:3000/api/products")
+console.log(location.href)
+       const url = new URL(location.href);
+        const productId = url.searchParams.get("productId");
+        // renvoie la première valeur avec le paramètre de recherche ==> "productId"
+        console.log(productId)
+      
+  fetch("http://localhost:3000/api/products/" + productId)
       .then(res => res.json())
-      .then(products => {
-        for (let i = 0; i < products.length; i++){
-          const product = products[i];
-          console.log(product);
+      .then(product => { 
     
-        document.getElementById("title").innerHTML=product.name;
-        document.getElementById("price").innerHTML=product.price;
-        document.getElementById("description").innerHTML=product.description;
+          document.getElementById("title").innerHTML = product.name;
+          document.getElementById("price").innerHTML = product.price;
+          document.getElementById("description").innerHTML = product.description;
+
+
+          // let productImg = document.createElement("img");
+          // productImg.setAttribute("src", product.imageUrl);
+          // productImg.setAttribute("alt", product.altTxt);
+          // // console.log(document.getElementsByClassName("item__img")[0]);
+          // document.getElementById("item__img").appendChild(productImg);
+
+          let productImg = document.createElement("img");
+          productImg.setAttribute("src", product.imageUrl);
+          productImg.setAttribute("alt", product.altTxt);
+          // console.log(document.getElementsByClassName("item__img")[0]);
+          let images = document.getElementsByClassName("item__img")
+          for (let i = 0; i < images.length; i++) {
+            const element = images[i];
+            element.appendChild(productImg);
+            
+          }
+
+          console.log(product.colors);
+
+          for (let i = 0; i < product.colors.length; i++) {
+            const colorTab = product.colors[i];
+           console.log("j'affiche la couleur" + colorTab)
+             let option = document.createElement("option");
+            option.setAttribute("value", colorTab);
+            option.innerHTML = colorTab;
+
+            document.getElementById("colors").appendChild(option);
+   
+          }
+
+
+          // let productImg = document.createElement("img");
+          // productImg.setAttribute("src", product.imageUrl);
+          // productImg.setAttribute("alt", product.altTxt);
+          // console.log(document.getElementsByClassName("item__img")[0]);
+          // document.getElementsByClassName("item__img")[0].appendChild(productImg);
+   
         }
-      })
+    )
    
   </script>
 
