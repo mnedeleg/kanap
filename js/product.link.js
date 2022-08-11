@@ -70,6 +70,8 @@ console.log(location.href)
 
       if (foundProduct != undefined){ 
         foundProduct.quantity += parseInt(quantity);
+        //parseInt va convertir une chaîne de caractère en nombre
+        // et donc permettre les calculs
       }else{
         // productId.quantity = 1;
         // basket.push(productId);

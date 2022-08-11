@@ -134,5 +134,31 @@
       </div>
     </footer>
   <script src="../js/cart.js"></script>
+  <script>
+    // Faire un fetch via local storage (getItem) pour récupérer le tableau (des éléments préalablement ajoutés)
+    // Parcourir le tableau avec une boucle
+    // Faire des "document.create" pour visualiser le panier
+
+// let basket = localStorage.getItem("basket")
+// if (basket != undefined){
+//   console.log("Panier rempli de plein de bonnes choses")
+// for (let i = 0; i < basket.length; i++) {
+//   const element = basket[i];
+//   element.appendChild(basket);
+// }
+// }
+// else{
+//   console.log("Panier vide")
+// }
+
+
+let basket = localStorage.getItem("basket");
+console.log(basket);
+
+      
+     
+
+
+  </script>
   </body>
 </html>
