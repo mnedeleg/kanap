@@ -60,11 +60,14 @@ console.log(location.href)
    console.log(productId);
       let basket = getBasket();
       console.log(basket);
+      
       let colorEl = document.getElementById("colors");
       let color = colorEl.options[colorEl.selectedIndex].value;
       let foundProduct = basket.find(p => p.id == productId && p.color == color);
       // find : chercher un élément dans un tableau par rapport à une condition
       let quantity = document.getElementById("quantity").value;
+
+
       if (foundProduct != undefined){ 
         foundProduct.quantity += parseInt(quantity);
       }else{
@@ -78,8 +81,11 @@ console.log(location.href)
         }
         basket.push(item)
       }
-      // basket.push(productId); // ajout productId au tableau basket
+      // ajout de item au reste du tableau "basket" -- à la fin
       saveBasket(basket);
+      
+      // basket sauvegardé sur le local storage
+    
   }
   let btn = document.querySelector("#addToCart");
   btn.addEventListener("click", addBasket);
