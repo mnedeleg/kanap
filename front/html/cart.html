@@ -146,6 +146,7 @@ if (basket != undefined) { // === nul ??
 
   const cartItems = document.getElementById("cart__items");
   let totalPrice = 0;
+  let totalQuantity = 0;
     for (let i = 0; i < basket.length; i++) {
       const element = basket[i];
     
@@ -158,6 +159,10 @@ if (basket != undefined) { // === nul ??
           let sousTotal = element.quantity * parseFloat(productLs.price);
           totalPrice += sousTotal;
           document.getElementById("totalPrice").textContent = totalPrice;
+
+          let sousTotalQuantity = element.quantity;
+          totalQuantity += sousTotalQuantity;
+          document.getElementById("totalQuantity").textContent = totalQuantity;
     
 
           let article = document.createElement("article");
