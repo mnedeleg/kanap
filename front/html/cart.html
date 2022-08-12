@@ -135,16 +135,117 @@
     </footer>
   <script src="../js/cart.js"></script>
   <script>
-    // Faire un fetch via local storage (getItem) pour récupérer le tableau (des éléments préalablement ajoutés)
-    // Parcourir le tableau avec une boucle
-    // Faire des "document.create" pour visualiser le panier
+
+    // Faire un fetch via local storage (getItem) pour récupérer le tableau (des éléments préalablement ajoutés) V
+    // Parcourir le tableau avec une boucle qui charge les éléments du LS
+    // Faire un fetch pour récuprérer les id des prodduits
+    // Faire des "document.create" pour visualiser le panier ?
+
+let basket = JSON.parse(localStorage.getItem("basket"))
+if (basket != undefined) { // === nul ??
+
+  const cartItems = document.getElementById("cart__items");
+  let totalPrice = 0;
+    for (let i = 0; i < basket.length; i++) {
+      const element = basket[i];
+    
+
+  
+      fetch("http://localhost:3000/api/products/" + element.id)
+        .then(res => res.json())
+        .then(productLs => {
+
+          let sousTotal = element.quantity * parseFloat(productLs.price);
+          totalPrice += sousTotal;
+          document.getElementById("totalPrice").textContent = totalPrice;
+    
+
+          let article = document.createElement("article");
+          article.setAttribute("class", "cart__item" );
+          article.setAttribute("data-id", element.id);
+          article.setAttribute("data-color", element.color);
+
+          let cartItemImg = document.createElement("div");
+          cartItemImg.setAttribute("class", "cart__item__img" );
+          article.appendChild(cartItemImg);
+
+          let productImg = document.createElement("img");
+          productImg.setAttribute("src", productLs.imageUrl);
+          productImg.setAttribute("alt", productLs.altTxt);
+          cartItemImg.appendChild(productImg);
+          
+          let cartItemContent = document.createElement("div");
+          cartItemContent.setAttribute("class", "cart__item__content");
+          article.appendChild(cartItemContent);
+
+          let cartItemContentDescription = document.createElement("div");
+          cartItemContentDescription.setAttribute("class", "cart__item__content__description");
+          cartItemContent.appendChild(cartItemContentDescription);
+
+          let productName = document.createElement("h2");
+          productName.textContent = productLs.name;
+          cartItemContentDescription.appendChild(productName);
+
+          let productColor = document.createElement("p");
+          productColor.textContent = element.color;
+          cartItemContentDescription.appendChild(productColor);
+
+          let productPrice = document.createElement("p");
+          productPrice.textContent = productLs.price;
+          cartItemContentDescription.appendChild(productPrice);
+
+          let cartItemContentSettings = document.createElement("div");
+          cartItemContentSettings.setAttribute("class", "cart__item__content__settings");
+          cartItemContent.appendChild(cartItemContentSettings);
+
+          let cartItemSettingsQuantity = document.createElement("div");
+          cartItemSettingsQuantity.setAttribute("class", "cart__item__content__settings__quantity");
+          cartItemContentSettings.appendChild(cartItemSettingsQuantity);
+
+          let quantityLabel =  document.createElement("p");
+          quantityLabel.textContent = "Qté : ";
+          cartItemSettingsQuantity.appendChild(quantityLabel);
 
 
-let basket = localStorage.getItem("basket")
-if (basket != undefined) {
-  console.log(basket);}
-else{
-  console.log("la panier est vide")
+          let quantityInput = document.createElement("input");
+          quantityInput.setAttribute("type", "number");
+          quantityInput.setAttribute("name", "itemQuantity");
+          quantityInput.setAttribute("class", "itemQuantity");
+          quantityInput.setAttribute("min", "1");
+          quantityInput.setAttribute("max", "100");
+          quantityInput.setAttribute("value", element.quantity);
+          
+          cartItemSettingsQuantity.appendChild(quantityInput);
+
+          let cartItemSettingsDelete = document.createElement("div");
+          cartItemSettingsDelete.setAttribute("class", "cart__item__content__settings__delete");
+          cartItemContentSettings.appendChild(cartItemSettingsDelete);
+
+          let deleteLabel = document.createElement("p");
+          deleteLabel.setAttribute("class", "deleteItem");
+          deleteLabel.textContent = "Supprimer";
+          cartItemSettingsDelete.appendChild(deleteLabel);
+
+
+
+
+          
+
+
+
+
+
+
+          cartItems.appendChild(article);
+
+          
+          
+        })
+      }
+   
+     
+}else{
+  console.log("Le panier est vide")
 }
 
 

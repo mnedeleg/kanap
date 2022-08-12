@@ -62,7 +62,8 @@ console.log(location.href)
       console.log(basket);
       
       let colorEl = document.getElementById("colors");
-      let color = colorEl.options[colorEl.selectedIndex].value;
+      let color = colorEl.value;
+      // let color = colorEl.options[colorEl.selectedIndex].value;
       let foundProduct = basket.find(p => p.id == productId && p.color == color);
       // find : chercher un élément dans un tableau par rapport à une condition
       let quantity = document.getElementById("quantity").value;
