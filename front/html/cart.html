@@ -247,15 +247,19 @@ if (basket != undefined) { // === nul ??
 
       function removeItem(){
         let basket = getBasket()
-        let removeProduct = basket.filter(p => p.id = element.id);
+        basket = basket.filter(p => p.id != element.id && element.color);
         SaveBasket(basket);
-       
       }
-      console.log(basket);
-      let deletedArticle = document.querySelector(".removeItem");
-      deletedArticle.addEventListener("onclick", removeItem);
 
+      console.log(basket);
+      window.onload = function() {
+      let deletedArticle = document.querySelectorAll(".deleteItem");
+      deletedArticle.addEventListener("onclick", removeItem);
+      
       console.log("L'article est supprimé");
+    }
+
+    
 
 
   </script>
