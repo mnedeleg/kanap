@@ -246,33 +246,44 @@ if (basket != undefined) { // === nul ??
       // Add an event listener on "supprimer" (class : deletedItem) on click
 
 function removeItem(){
-  let basket = getBasket()
-  basket = basket.filter(p => p.id != element.id && element.color);
+  let basket = JSON.parse(localStorage.getItem("basket"))
+  basket = basket.filter(p => p.id != productLs.id && productLs.color);
   SaveBasket(basket);
 }
 
 console.log(basket);
 window.onload = function() {
-let deletedArticle = document.querySelectorAll(".deleteItem");
-deletedArticle.forEach(deleteBtn => {
-  deleteBtn.addEventListener('click', (e) => {
-    alert(("L'article doit être supprimé"))
+  let deletedArticle = document.querySelectorAll(".deleteItem");
+  deletedArticle.forEach(deleteBtn => {
+    deleteBtn.addEventListener('click', (e) => {
+    //  alert(("L'article doit être supprimé"));
+    removeItem(basket);
+    SaveBasket(basket);
+    })
   })
-})
-
 }
 // change quantity //
 
 function changeQuantity(){
-  let basket = getBasket();
-  let foundProduct = basket.find(p => p.id == productId && p.color == color);
+  let basket = JSON.parse(localStorage.getItem("basket"))
+  let foundProduct = basket.find(p => p.id == element.id && element.color == color);
   if (foundProduct != undefined){
       foundProduct.quantity += quantity;
   }   if(foundProduct.quantity <= 0) {
-          removeItem(foundProduct);
-      }else {SaveBasket(basket);
+        removeItem(foundProduct);
+      }else {
+        SaveBasket(basket);
       }
-  
+}
+window.onload = function() {
+  let changeQuantityItem = document.querySelectorAll(".itemQuantity");
+  changeQuantity.forEach(quantityArrow => {
+    quantityArrow.addEventListener('click', (e) => {
+     alert(("Changement des quanitités de l'article"));
+    changeQuantity(basket);
+    SaveBasket(basket);
+    })
+  })
 }
 
     
