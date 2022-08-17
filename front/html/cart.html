@@ -231,31 +231,32 @@ if (basket != undefined) { // === nul ??
           deleteLabel.textContent = "Supprimer";
           cartItemSettingsDelete.appendChild(deleteLabel);
 
-
-
-
-          
-
-
-
-
-
-
           cartItems.appendChild(article);
-
-          
           
         })
       }
-   
+  
      
 }else{
   console.log("Le panier est vide")
 }
 
+      //////// Removing Item from the cart ////////
 
-      
+      // Add an event listener on "supprimer" (class : deletedItem) on click
+
+      function removeItem(evenement){
+        let basket = getBasket()
+        basket = basket.filter(p => p.id = productLs.id);
+        SaveBasket(basket);
+       
+      }
+      console.log(basket);
+      let deletedArticle = document.querySelector(".removeItem");
      
+      deletedArticle.addEventListener("onclick", removeItem);
+
+      console.log("L'article est supprimé");
 
 
   </script>
