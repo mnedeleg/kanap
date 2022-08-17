@@ -245,15 +245,14 @@ if (basket != undefined) { // === nul ??
 
       // Add an event listener on "supprimer" (class : deletedItem) on click
 
-      function removeItem(evenement){
+      function removeItem(){
         let basket = getBasket()
-        basket = basket.filter(p => p.id = productLs.id);
+        let removeProduct = basket.filter(p => p.id = element.id);
         SaveBasket(basket);
        
       }
       console.log(basket);
       let deletedArticle = document.querySelector(".removeItem");
-     
       deletedArticle.addEventListener("onclick", removeItem);
 
       console.log("L'article est supprimé");
