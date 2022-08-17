@@ -245,19 +245,35 @@ if (basket != undefined) { // === nul ??
 
       // Add an event listener on "supprimer" (class : deletedItem) on click
 
-      function removeItem(){
-        let basket = getBasket()
-        basket = basket.filter(p => p.id != element.id && element.color);
-        SaveBasket(basket);
-      }
+function removeItem(){
+  let basket = getBasket()
+  basket = basket.filter(p => p.id != element.id && element.color);
+  SaveBasket(basket);
+}
 
-      console.log(basket);
-      window.onload = function() {
-      let deletedArticle = document.querySelectorAll(".deleteItem");
-      deletedArticle.addEventListener("onclick", removeItem);
-      
-      console.log("L'article est supprimé");
-    }
+console.log(basket);
+window.onload = function() {
+let deletedArticle = document.querySelectorAll(".deleteItem");
+deletedArticle.forEach(deleteBtn => {
+  deleteBtn.addEventListener('click', (e) => {
+    alert(("L'article doit être supprimé"))
+  })
+})
+
+}
+// change quantity //
+
+function changeQuantity(){
+  let basket = getBasket();
+  let foundProduct = basket.find(p => p.id == productId && p.color == color);
+  if (foundProduct != undefined){
+      foundProduct.quantity += quantity;
+  }   if(foundProduct.quantity <= 0) {
+          removeItem(foundProduct);
+      }else {SaveBasket(basket);
+      }
+  
+}
 
     
 
