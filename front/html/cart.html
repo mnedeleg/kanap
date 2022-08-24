@@ -448,27 +448,37 @@ const validEmail = function(inputEmail){
       
   };
 
-//   form.addEventListener("submit", function(e){
-//     e.preventDefault();
-//     if (validFirstName(form.firstName) 
-//       && validLastName(form.lastName) 
-//       && validAddress(form.address) 
-//       && validCity(form.city)
-//       && validEmail(form.email))
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    if (validFirstName(form.firstName) 
+      && validLastName(form.lastName) 
+      && validAddress(form.address) 
+      && validCity(form.city)
+      && validEmail(form.email)){
+//GET ID'S + CONTACT
+let contactForm ={
+  firstName : firstName.value,
+  lastName: lastName.value,
+  address: address.value,
+  city: city.value,
+  email: email.value
+}
+      }else{
+    console.log('informations erronées ou manquantes');
+  }})
     
-//     function cartOrder (){
-//       fetch ("http://localhost:3000/api/order"{
-//         method :'POST'
-//       })
-//         .then(res => res.json())
-//         .then(cartOrder => console.log(cartOrder))
+  fetch ("http://localhost:3000/api/order"{
+        method :'POST',
+        
+      })
+        .then(res => res.json())
+        .then(cartOrder => console.log(cartOrder))
+  
         
   
-//     }; 
-//   }else{
-//     console.log('informations erronées ou manquantes');
-//   }
-// })
+     
+  
+
   </script>
   </body>
 </html>
