@@ -77,7 +77,7 @@
               <form method="get" class="cart__order__form">
                 <div class="cart__order__form__question">
                   <label for="firstName">Prénom: </label>
-                  <input type="text" name="firstName" id="firstName" required>
+                  <input type="text" name="firstName" id="firstName" required data-errormsg="firstNameErrorMsg">
                   <p id="firstNameErrorMsg"><!-- ci est un message d'erreur --></p>
                 </div>
                 <div class="cart__order__form__question">
@@ -325,8 +325,11 @@ const validFirstName = function(inputFirstName){
 
   let testFirstName = firstNameRegExp.test(inputFirstName.value);
   console.log(testFirstName)
-  let errorMessFirstName = inputFirstName.nextElementSibling;
-
+  // let errorMessFirstName = inputFirstName.nextElementSibling;
+  let errMessageId = inputFirstName.getAttribute("data-errormsg")
+  let errorMessFirstName = document.getElementById(errMessageId)
+  console.log(inputFirstName);
+console.log(errorMessFirstName, errMessageId);
     if(testFirstName == true){
       return true;
     }else{
@@ -456,23 +459,31 @@ const validEmail = function(inputEmail){
       && validCity(form.city)
       && validEmail(form.email)){
 //GET ID'S + CONTACT
-let contactForm ={
-  firstName : firstName.value,
-  lastName: lastName.value,
-  address: address.value,
-  city: city.value,
-  email: email.value
-}
-      }else{
-    console.log('informations erronées ou manquantes');
-  }})
+        let contactForm ={
+          firstName : firstName.value,
+          lastName: lastName.value,
+          address: address.value,
+          city: city.value,
+          email: email.value
+        }
+        let basket = JSON.parse(localStorage.getItem("basket"))
+        //basket = {[name: "blabla", quantity : 2, color: "rouge"]
+        //  [name: "tictac", quantity : 1, color: "bleu"]}
+        let body = {
+          contact: contactForm,
+          products: [],
+        }
+        fetch ("http://localhost:3000/api/order", {
+          method :'POST',
+        })
+          .then(res => res.json())
+          .then(cartOrder => console.log(cartOrder))
+  
+    }else{
+      console.log('informations erronées ou manquantes');
+    }
+  })
     
-  fetch ("http://localhost:3000/api/order"{
-        method :'POST',
-        
-      })
-        .then(res => res.json())
-        .then(cartOrder => console.log(cartOrder))
   
         
   
