@@ -328,9 +328,10 @@ const validFirstName = function(inputFirstName){
   let errorMessFirstName = inputFirstName.nextElementSibling;
 
     if(testFirstName == true){
-      
+      return true;
     }else{
       errorMessFirstName.textContent = 'Prénom non valide';
+      return false;
     }
       
   };
@@ -348,14 +349,70 @@ const validLastName = function(inputLastName){
 
   );
 
-  let testLastName = LastNameRegExp.test(inputLastName.value);
+  let testLastName = lastNameRegExp.test(inputLastName.value);
   console.log(testLastName)
   let errorMessLastName = inputLastName.nextElementSibling;
 
     if(testLastName == true){
-      
+      return true;
     }else{
       errorMessLastName.textContent = 'Nom non valide';
+      return false;
+    }
+      
+  };
+
+    ////// Adresse postal /////
+
+form.address.addEventListener('change', function(){
+  validAddress(this);
+});
+
+const validAddress = function(inputAddress){
+  //création de la regExp pour validation email
+  let addressRegExp = new RegExp (
+  '^[a-zA-Z0-9-\s]{5,100}$', 'g'
+  // espace ne fonctionne pas
+
+  );
+
+  let testAddress = addressRegExp.test(inputAddress.value);
+  console.log(testAddress)
+  let errorMessAddress = inputAddress.nextElementSibling;
+
+    if(testAddress == true){
+      return true;
+      
+    }else{
+      errorMessAddress.textContent = 'Adresse non valide';
+      return false;
+    }
+      
+  };
+
+   ////// ville /////
+
+form.city.addEventListener('change', function(){
+  validCity(this);
+});
+
+const validCity = function(inputCity){
+  //création de la regExp pour validation email
+  let cityRegExp = new RegExp (
+  '^[a-zA-Z-]{2,40}$', 'g'
+
+  );
+
+  let testCity =cityRegExp.test(inputCity.value);
+  console.log(testCity)
+  let errorMessCity = inputCity.nextElementSibling;
+
+    if(testCity == true){
+      return true;
+      
+    }else{
+      errorMessCity.textContent = 'Nom de la ville non valide';
+      return false;
     }
       
   };
@@ -380,20 +437,38 @@ const validEmail = function(inputEmail){
 
   let testEmail = emailRegExp.test(inputEmail.value);
   console.log(testEmail)
-  let errorMess = inputEmail.nextElementSibling;
+  let errorMessEmail = inputEmail.nextElementSibling;
 
     if(testEmail == true){
-      
+      return true;
     }else{
-      errorMess.textContent = 'Adresse mail non valide';
+      errorMessEmail.textContent = 'Adresse mail non valide';
+     return false;
     }
       
   };
 
-
+//   form.addEventListener("submit", function(e){
+//     e.preventDefault();
+//     if (validFirstName(form.firstName) 
+//       && validLastName(form.lastName) 
+//       && validAddress(form.address) 
+//       && validCity(form.city)
+//       && validEmail(form.email))
     
-
-
+//     function cartOrder (){
+//       fetch ("http://localhost:3000/api/order"{
+//         method :'POST'
+//       })
+//         .then(res => res.json())
+//         .then(cartOrder => console.log(cartOrder))
+        
+  
+//     }; 
+//   }else{
+//     console.log('informations erronées ou manquantes');
+//   }
+// })
   </script>
   </body>
 </html>
