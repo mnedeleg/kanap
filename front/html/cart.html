@@ -307,6 +307,90 @@ window.onload = function() {
   })
 }
 
+let form = document.querySelector('.cart__order__form');
+console.log(form.firstName);
+
+////// prénom/////
+
+form.firstName.addEventListener('change', function(){
+  validFirstName(this);
+});
+
+const validFirstName = function(inputFirstName){
+  //création de la regExp pour validation email
+  let firstNameRegExp = new RegExp (
+  '^[a-zA-Z-]{2,20}$', 'g'
+
+  );
+
+  let testFirstName = firstNameRegExp.test(inputFirstName.value);
+  console.log(testFirstName)
+  let errorMessFirstName = inputFirstName.nextElementSibling;
+
+    if(testFirstName == true){
+      
+    }else{
+      errorMessFirstName.textContent = 'Prénom non valide';
+    }
+      
+  };
+
+  ////// nom /////
+
+form.lastName.addEventListener('change', function(){
+  validLastName(this);
+});
+
+const validLastName = function(inputLastName){
+  //création de la regExp pour validation email
+  let lastNameRegExp = new RegExp (
+  '^[a-zA-Z-]{2,40}$', 'g'
+
+  );
+
+  let testLastName = LastNameRegExp.test(inputLastName.value);
+  console.log(testLastName)
+  let errorMessLastName = inputLastName.nextElementSibling;
+
+    if(testLastName == true){
+      
+    }else{
+      errorMessLastName.textContent = 'Nom non valide';
+    }
+      
+  };
+////// Email /////
+form.email.addEventListener('change', function(){
+  validEmail(this);
+});
+
+const validEmail = function(inputEmail){
+  //création de la regExp pour validation email
+  let emailRegExp = new RegExp (
+  '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 'g'
+  //^ensemble de caractère de a à z + maj ok + nombre 0 à 9 et des points et des underscores et des tirets
+  //"+" on peut en écrire plusieurs - fin des premiers crochets = première partie email
+  //@ à retrouver/ combien de fois ? 1 fois
+  //on recommence...caractères nombre etc...
+  // le point et qu'un seul
+  //a-z en minuscule et deux lettres min et 10max
+  //un marqueur : soit un deuxième paramètres (ou flag) : comment lire ce regExp
+  //'g' lecture de manière global
+  );
+
+  let testEmail = emailRegExp.test(inputEmail.value);
+  console.log(testEmail)
+  let errorMess = inputEmail.nextElementSibling;
+
+    if(testEmail == true){
+      
+    }else{
+      errorMess.textContent = 'Adresse mail non valide';
+    }
+      
+  };
+
+
     
 
 
