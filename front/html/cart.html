@@ -77,7 +77,7 @@
               <form method="get" class="cart__order__form">
                 <div class="cart__order__form__question">
                   <label for="firstName">Prénom: </label>
-                  <input type="text" name="firstName" id="firstName" required data-errormsg="firstNameErrorMsg">
+                  <input type="text" name="firstName" id="firstName" required>
                   <p id="firstNameErrorMsg"><!-- ci est un message d'erreur --></p>
                 </div>
                 <div class="cart__order__form__question">
@@ -307,8 +307,13 @@ window.onload = function() {
   })
 }
 
+
+
 let form = document.querySelector('.cart__order__form');
 console.log(form.firstName);
+
+let input = document.querySelectorAll(".cart__order__form__question input");
+input[0].setAttribute("data-errormsg", "firstNameErrorMsg");
 
 ////// prénom/////
 
@@ -445,7 +450,7 @@ const validEmail = function(inputEmail){
     if(testEmail == true){
       return true;
     }else{
-      errorMessEmail.textContent = 'Adresse mail non valide';
+      errorMessEmail.textContent = 'Adresse email non valide';
      return false;
     }
       
