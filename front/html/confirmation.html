@@ -78,3 +78,17 @@
   <script src="../js/confirmation.js"></script>
   </body>
 </html>
+
+<script>
+
+
+
+const url = new URL(location.href);
+const orderId = url.searchParams.get("orderId");
+
+
+
+// renvoie la première valeur avec le paramètre de recherche ==> "productId"
+console.log(orderId)
+
+</script>

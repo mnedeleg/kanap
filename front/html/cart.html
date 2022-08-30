@@ -495,14 +495,18 @@ const validEmail = function(inputEmail){
         })
           .then(res => res.json())
           .then(cartOrder => {
-            console.log(cartOrder.id)
-            window.location.href = "confirmation.html"
+            localStorage.setItem("sendId", cartOrder.orderId);
+            console.log(cartOrder.orderId)
+            // window.location.href = "confirmation.html"
+
+            // let orderLink = "confirmation.html?orderId=" + orderId._id; 
           })
   
     }else{
-      console.log('informations erronées ou manquantes');
+      
     }
   })
+  
     
   
         

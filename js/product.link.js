@@ -1,4 +1,3 @@
-console.log(location.href)
        const url = new URL(location.href);
         const productId = url.searchParams.get("productId");
         // renvoie la première valeur avec le paramètre de recherche ==> "productId"
