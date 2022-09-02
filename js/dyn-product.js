@@ -1,40 +1,47 @@
-       const url = new URL(location.href);
-        const productId = url.searchParams.get("productId");
-        // renvoie la première valeur avec le paramètre de recherche ==> "productId"
-        console.log(productId)
-      
-  fetch("http://localhost:3000/api/products/" + productId)
+// getting back the product URL and productId key // Returning the Id //
+const url = new URL(location.href);
+ const productId = url.searchParams.get("productId");
+
+ // fetch method with the specific product Id //
+   fetch("http://localhost:3000/api/products/" + productId)
       .then(res => res.json())
       .then(product => { 
-    
-          document.getElementById("title").innerHTML = product.name;
-          document.getElementById("price").innerHTML = product.price;
-          document.getElementById("description").innerHTML = product.description;
+        
+        //product name //
+        document.getElementById("title").textContent = product.name;
+        //product price //
+        document.getElementById("price").textContent = product.price;
+        //product descirption //
+        document.getElementById("description").textContent = product.description;
 
-          let productImg = document.createElement("img");
-          productImg.setAttribute("src", product.imageUrl);
-          productImg.setAttribute("alt", product.altTxt);
+        //product image //
+        let productImg = document.createElement("img");
+        productImg.setAttribute("src", product.imageUrl);
+        productImg.setAttribute("alt", product.altTxt);
           
-          let images = document.getElementsByClassName("item__img")
+        let images = document.getElementsByClassName("item__img")
           for (let i = 0; i < images.length; i++) {
             const element = images[i];
             element.appendChild(productImg);  
           }
-          console.log(product.colors);
 
-          for (let i = 0; i < product.colors.length; i++) {
-            const colorTab = product.colors[i];
-          //  console.log("j'affiche la couleur" + colorTab)
-             let option = document.createElement("option");
+        // product color / browsing color //
+        for (let i = 0; i < product.colors.length; i++) {
+          const colorTab = product.colors[i];
+          
+            let option = document.createElement("option");
             option.setAttribute("value", colorTab);
-            option.innerHTML = colorTab;
+            option.textContent = colorTab;
 
             document.getElementById("colors").appendChild(option);
    
           }
         }
     )
-////////// enregistrement du panier dans le local storage //////////
+
+////////// saving basket in local storage //////////
+
+
   function saveBasket(basket){
       localStorage.setItem("basket",JSON.stringify(basket)); // clé + valeur // objet >> chaine de caractère
   }

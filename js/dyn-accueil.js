@@ -1,37 +1,39 @@
+//get the API with fetch // 2 promises
 fetch("http://localhost:3000/api/products")
-//.then(function(response){  return response.json();
-  .then(res => res.json()) 
-  .then(products => {
-    console.log(products) 
+  .then(res => res.json()) // getting data with JSON format
+  .then(products => { // getting and using data (array)
     for (let i = 0; i < products.length; i++){ 
       const product = products[i]; 
-      console.log(product); 
-  
 
-    let articleProduct = document.createElement ("article");
+      //article tag
+      let articleProduct = document.createElement ("article");
 
-    let name = document.createElement ("h3");
-    name.textContent = product.name;
-    name.classList.add("productName");
-    articleProduct.appendChild(name);
+      // h3 tag
+      let name = document.createElement ("h3");
+      name.textContent = product.name;
+      name.classList.add("productName");
+      articleProduct.appendChild(name);
 
-    let imageUrl = document.createElement("img");
-    imageUrl.setAttribute("src", product.imageUrl);
-    imageUrl.setAttribute("alt", product.altTxt);
-    articleProduct.appendChild(imageUrl);
+      // image tag
+      let imageUrl = document.createElement("img");
+      imageUrl.setAttribute("src", product.imageUrl);
+      imageUrl.setAttribute("alt", product.altTxt);
+      articleProduct.appendChild(imageUrl);
 
-    let description = document.createElement("p");
-    description.textContent = product.description;
-    description.classList.add("productDescription");
-    articleProduct.appendChild(description);
+      // description tag
+      let description = document.createElement("p");
+      description.textContent = product.description;
+      description.classList.add("productDescription");
+      articleProduct.appendChild(description);
 
+      // giving key "productID" and parameter "product._id" // sending page /accueil.html to page /product.html 
+      let productLink = "product.html?productId=" + product._id; 
 
-    let productLink = "product.html?productId=" + product._id; 
-
-    let linkProductContainer = document.createElement("a");
-    linkProductContainer.appendChild(articleProduct);
-    linkProductContainer.setAttribute("href", productLink); 
-    document.getElementById("items").appendChild(linkProductContainer); 
+      // link tag
+      let linkProductContainer = document.createElement("a");
+      linkProductContainer.appendChild(articleProduct);
+      linkProductContainer.setAttribute("href", productLink); 
+      document.getElementById("items").appendChild(linkProductContainer); 
 
 
   }
