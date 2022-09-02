@@ -11,7 +11,6 @@
           document.getElementById("price").innerHTML = product.price;
           document.getElementById("description").innerHTML = product.description;
 
-
           let productImg = document.createElement("img");
           productImg.setAttribute("src", product.imageUrl);
           productImg.setAttribute("alt", product.altTxt);
@@ -19,10 +18,8 @@
           let images = document.getElementsByClassName("item__img")
           for (let i = 0; i < images.length; i++) {
             const element = images[i];
-            element.appendChild(productImg);
-            
+            element.appendChild(productImg);  
           }
-
           console.log(product.colors);
 
           for (let i = 0; i < product.colors.length; i++) {
@@ -35,9 +32,6 @@
             document.getElementById("colors").appendChild(option);
    
           }
-
-
-   
         }
     )
 ////////// enregistrement du panier dans le local storage //////////
@@ -66,7 +60,6 @@
       let foundProduct = basket.find(p => p.id == productId && p.color == color);
       // find : chercher un élément dans un tableau par rapport à une condition
       let quantity = document.getElementById("quantity").value;
-
 
       if (foundProduct != undefined){ 
         foundProduct.quantity += parseInt(quantity);
