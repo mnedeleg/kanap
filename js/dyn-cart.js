@@ -19,6 +19,8 @@
     
               let sousTotal = element.quantity * parseFloat(productLs.price);
               totalPrice += sousTotal;
+            
+            
               document.getElementById("totalPrice").textContent = totalPrice;
     
               let sousTotalQuantity = element.quantity;
@@ -128,6 +130,7 @@
     function changeQuantity(element, qtt){
       let basket = JSON.parse(localStorage.getItem("basket"))
       let foundProduct = basket.find(p => p.id == element.id && element.color == p.color);
+      window.location.reload();
       console.log(foundProduct);
       if (foundProduct != undefined){
         foundProduct.quantity = parseInt(qtt);
@@ -159,6 +162,7 @@
         let color = e.target.getAttribute("data-color");
         let item = {id, color};
         let qtt = e.target.value
+       
        
     
         

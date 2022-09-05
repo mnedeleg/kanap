@@ -41,23 +41,26 @@ const url = new URL(location.href);
 
 ////////// saving basket in local storage //////////
 
-
+// function adding product to basket //
   function saveBasket(basket){
-      localStorage.setItem("basket",JSON.stringify(basket)); // clé + valeur // objet >> chaine de caractère
+      localStorage.setItem("basket",JSON.stringify(basket)); // key + value = objet >> string
+      console.log(basket); 
   }
+
   
   function getBasket (){
       let basket = (localStorage.getItem("basket"));
+      console.log(basket);
       if (basket == null){
           return []; // panier vide
+          
       }else{
-          return JSON.parse(basket); // sérialisation du tableau // chaine de caractères >> objet
+          return JSON.parse(basket); // sérialisation du tableau // chaine de caractères >> objet//
       }
   }
+
   
   function addBasket (){
-   console.log("on affiche le basket");
-   console.log(productId);
       let basket = getBasket();
       console.log(basket);
       

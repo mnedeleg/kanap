@@ -184,11 +184,8 @@ const validEmail = function(inputEmail){
         })
           .then(res => res.json())
           .then(cartOrder => {
-            localStorage.setItem("sendId", cartOrder.orderId);
-            console.log(cartOrder.orderId)
-            window.location.href = "confirmation.html";
-
-            // let orderLink = "confirmation.html?orderId=" + orderId._id; 
+            localStorage.removeItem("basket");
+            window.location.href = "confirmation.html?orderId=" + cartOrder.orderId;
           })
   
     }else{
