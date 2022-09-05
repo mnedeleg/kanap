@@ -1,4 +1,5 @@
 // getting back the product URL and productId key // Returning the Id //
+
 const url = new URL(location.href);
  const productId = url.searchParams.get("productId");
 
@@ -34,65 +35,61 @@ const url = new URL(location.href);
             option.textContent = colorTab;
 
             document.getElementById("colors").appendChild(option);
-   
           }
         }
     )
 
-////////// saving basket in local storage //////////
+    ////////// saving basket in local storage //////////
 
-// function adding product to basket //
+// function adding basket to local storage //
   function saveBasket(basket){
-      localStorage.setItem("basket",JSON.stringify(basket)); // key + value = objet >> string
+    localStorage.setItem("basket",JSON.stringify(basket)); // key + value = objet >> string
       console.log(basket); 
-  }
+}
 
-  
-  function getBasket (){
-      let basket = (localStorage.getItem("basket"));
+// function getting basket from local storage
+function getBasket (){
+    let basket = (localStorage.getItem("basket"));
       console.log(basket);
-      if (basket == null){
-          return []; // panier vide
-          
-      }else{
-          return JSON.parse(basket); // sérialisation du tableau // chaine de caractères >> objet//
-      }
-  }
+    if (basket == null){
+        return []; // empty array = empty basket
+        
+    }else{
+        return JSON.parse(basket); // give a string >> objet // containing product details //
+    }
+}
 
-  
-  function addBasket (){
-      let basket = getBasket();
+// adding product //
+function addBasket (){
+    let basket = getBasket();
       console.log(basket);
-      
-      let colorEl = document.getElementById("colors");
-      let color = colorEl.value;
-      // let color = colorEl.options[colorEl.selectedIndex].value;
-      let foundProduct = basket.find(p => p.id == productId && p.color == color);
-      // find : chercher un élément dans un tableau par rapport à une condition
-      let quantity = document.getElementById("quantity").value;
-
-      if (foundProduct != undefined){ 
-        foundProduct.quantity += parseInt(quantity);
-        //parseInt va convertir une chaîne de caractère en nombre
-        // et donc permettre les calculs
-      }else{
-        // productId.quantity = 1;
-        // basket.push(productId);
-        let item = {
-          id : productId, 
-          quantity : parseInt(quantity), 
-          color : color
-          
-        }
-        basket.push(item)
-      }
-      // ajout de item au reste du tableau "basket" -- à la fin
-      saveBasket(basket);
-      
-      // basket sauvegardé sur le local storage
     
-  }
-  let btn = document.querySelector("#addToCart");
-  btn.addEventListener("click", addBasket);
+    let colorEl = document.getElementById("colors");
+    let color = colorEl.value;
+    // find method // checking  if an element of the array has same Id and same color
+    let foundProduct = basket.find(p => p.id == productId && p.color == color);
+    let quantity = document.getElementById("quantity").value;
 
+    if (foundProduct != undefined){ 
+      foundProduct.quantity += parseInt(quantity); // convert a string > to number // Allow arithmetic opperation
+
+    }else{
+      let item = {
+        id : productId, 
+        quantity : parseInt(quantity), 
+        color : color
+        
+      }
+      // add the product to basket
+      basket.push(item) 
+    }
+    // basket saved in local storage
+    saveBasket(basket);
   
+}
+
+// when click => play function "addBasket" //
+let btn = document.querySelector("#addToCart");
+btn.addEventListener("click", addBasket);
+
+
