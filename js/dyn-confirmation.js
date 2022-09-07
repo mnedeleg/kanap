@@ -1,3 +1,4 @@
+// getting the basket order //
 const url = new URL(location.href);
  const sendId = url.searchParams.get("orderId");
 

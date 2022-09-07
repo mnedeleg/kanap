@@ -1,18 +1,17 @@
 
-    // Faire un fetch via local storage (getItem) pour récupérer le tableau (des éléments préalablement ajoutés) V
-    // Parcourir le tableau avec une boucle qui charge les éléments du LS
-    // Faire un fetch pour récuprérer les id des prodduits
-    // Faire des "document.create" pour visualiser le panier ?
-
-    let basket = JSON.parse(localStorage.getItem("basket"))
-    if (basket != undefined) { // === nul ??
+// getting back the basket from local storage //
+let basket = JSON.parse(localStorage.getItem("basket"))
+  if (basket != undefined) { 
     
-      const cartItems = document.getElementById("cart__items");
+    const cartItems = document.getElementById("cart__items");
+
+      //price and quantity setting //
       let totalPrice = 0;
       let totalQuantity = 0;
         for (let i = 0; i < basket.length; i++) {
           const element = basket[i];
-      
+          
+          // fetch 
           fetch("http://localhost:3000/api/products/" + element.id)
             .then(res => res.json())
             .then(productLs => {
@@ -20,14 +19,13 @@
               let sousTotal = element.quantity * parseFloat(productLs.price);
               totalPrice += sousTotal;
             
-            
               document.getElementById("totalPrice").textContent = totalPrice;
     
               let sousTotalQuantity = element.quantity;
               totalQuantity += sousTotalQuantity;
               document.getElementById("totalQuantity").textContent = totalQuantity;
-        
     
+              // create dynamic element on the page ir oder to display the basket //
               let article = document.createElement("article");
               article.setAttribute("class", "cart__item" );
               article.setAttribute("data-id", element.id);
@@ -109,69 +107,66 @@
       console.log("Le panier est vide")
     }
     
-          //////// Removing Item from the cart ////////
-          // Add an event listener on "supprimer" (class : deletedItem) on click
-    
-    function saveBasket(basket){
-      localStorage.setItem("basket",JSON.stringify(basket)); 
-      }
+//////// Removing Item from the cart ////////
         
-    function removeItem(cartItem){
-      let basket = JSON.parse(localStorage.getItem("basket"))
-      basket = basket.filter(p => (p.id != cartItem.id || p.id == cartItem.id)  && p.color != cartItem.color);
-      
-      saveBasket(basket);
-      window.location.reload();
-    }
-    
-    
-    // change quantity //
-    
-    function changeQuantity(element, qtt){
-      let basket = JSON.parse(localStorage.getItem("basket"))
-      let foundProduct = basket.find(p => p.id == element.id && element.color == p.color);
-      window.location.reload();
-      console.log(foundProduct);
-      if (foundProduct != undefined){
-        foundProduct.quantity = parseInt(qtt);
-        saveBasket(basket);
-      } 
-    
-    }
-    window.onload = function() {
-      
-      let deletedArticle = document.querySelectorAll(".deleteItem");
-      console.log(deletedArticle);
-      deletedArticle.forEach(deleteBtn => {
-        deleteBtn.addEventListener('click', (e) => {
-        let id = e.target.getAttribute("data-id");
-        let color = e.target.getAttribute("data-color");
-        let cartItem = {id, color};
-        console.log("basket");
-        removeItem(cartItem);
-       
-        })
-      })
-     
-    
-      let changeQuantityItem = document.querySelectorAll(".itemQuantity");
-      changeQuantityItem.forEach(quantityArrow => {
-        quantityArrow.addEventListener('click', (e) => {
-        
-        let id = e.target.getAttribute("data-id");
-        let color = e.target.getAttribute("data-color");
-        let item = {id, color};
-        let qtt = e.target.value
-       
-       
-    
-        
-         changeQuantity(item, qtt);
-        //  SaveBasket(basket);
-        })
-      })
-    }
-    
-    
-    
+// function saving basket to local storage //
+function saveBasket(basket){
+  localStorage.setItem("basket",JSON.stringify(basket)); 
+  }
+
+// function removing item from basket and local storage //  
+function removeItem(cartItem){
+  let basket = JSON.parse(localStorage.getItem("basket"))
+  basket = basket.filter(p => (p.id != cartItem.id || p.id == cartItem.id)  && p.color != cartItem.color);
   
+  saveBasket(basket);
+
+  // refreshing price after changes //
+  window.location.reload();
+}
+    
+// change quantity //
+
+function changeQuantity(element, qtt){
+  let basket = JSON.parse(localStorage.getItem("basket"))
+  // find method // checking  if an element of the array has same Id and same color
+  let foundProduct = basket.find(p => p.id == element.id && element.color == p.color);
+  window.location.reload();
+  console.log(foundProduct);
+  if (foundProduct != undefined){
+    foundProduct.quantity = parseInt(qtt);
+    saveBasket(basket);
+  } 
+
+}
+window.onload = function() {
+  //refresh  delete article //
+  let deletedArticle = document.querySelectorAll(".deleteItem");
+  console.log(deletedArticle);
+  deletedArticle.forEach(deleteBtn => {
+    deleteBtn.addEventListener('click', (e) => {
+    let id = e.target.getAttribute("data-id");
+    let color = e.target.getAttribute("data-color");
+    let cartItem = {id, color};
+    console.log("basket");
+    removeItem(cartItem);
+    
+    })
+  })
+  
+  let changeQuantityItem = document.querySelectorAll(".itemQuantity");
+  changeQuantityItem.forEach(quantityArrow => {
+    quantityArrow.addEventListener('click', (e) => {
+    
+    let id = e.target.getAttribute("data-id");
+    let color = e.target.getAttribute("data-color");
+    let item = {id, color};
+    let qtt = e.target.value
+    
+      changeQuantity(item, qtt);
+    })
+  })
+}
+
+
+

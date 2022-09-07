@@ -1,9 +1,8 @@
 //get the API with fetch // 2 promises
-console.log("bonjour 1 ", new Date())
 fetch("http://localhost:3000/api/products")
   .then(res => res.json()) // getting data with JSON format
   .then(products => { // getting and using data (array)
-   
+    console.log(products)
     for (let i = 0; i < products.length; i++){ 
       const product = products[i]; 
 
@@ -36,11 +35,10 @@ fetch("http://localhost:3000/api/products")
       linkProductContainer.appendChild(articleProduct);
       linkProductContainer.setAttribute("href", productLink); 
       document.getElementById("items").appendChild(linkProductContainer); 
-
-
   }
-  
 })
+
+
 // In case there is a problem (API, server etc...) => catch //
   .catch((error)=>{
     console.log(error)

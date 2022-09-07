@@ -4,14 +4,14 @@ console.log(form.firstName);
 let input = document.querySelectorAll(".cart__order__form__question input");
 input[0].setAttribute("data-errormsg", "firstNameErrorMsg");
 
-////// prénom/////
+////// First name /////
 
 form.firstName.addEventListener('change', function(){
   validFirstName(this);
 });
 
 const validFirstName = function(inputFirstName){
-  //création de la regExp pour validation email
+  //creation regExp first name //
   let firstNameRegExp = new RegExp (
   '^[a-zA-Z-]{2,20}$', 'g'
 
@@ -19,7 +19,7 @@ const validFirstName = function(inputFirstName){
 
   let testFirstName = firstNameRegExp.test(inputFirstName.value);
   console.log(testFirstName)
-  // let errorMessFirstName = inputFirstName.nextElementSibling;
+
   let errMessageId = inputFirstName.getAttribute("data-errormsg")
   let errorMessFirstName = document.getElementById(errMessageId)
   console.log(inputFirstName);
@@ -33,14 +33,14 @@ console.log(errorMessFirstName, errMessageId);
       
   };
 
-  ////// nom /////
+  ////// last name /////
 
 form.lastName.addEventListener('change', function(){
   validLastName(this);
 });
 
 const validLastName = function(inputLastName){
-  //création de la regExp pour validation email
+  //creation regExp last name //
   let lastNameRegExp = new RegExp (
   '^[a-zA-Z-]{2,40}$', 'g'
 
@@ -59,18 +59,16 @@ const validLastName = function(inputLastName){
       
   };
 
-    ////// Adresse postal /////
+    ////// Address /////
 
 form.address.addEventListener('change', function(){
   validAddress(this);
 });
 
 const validAddress = function(inputAddress){
-  //création de la regExp pour validation email
+  //creation regExp address //
   let addressRegExp = new RegExp (
   '^[a-zA-Z0-9- ]{5,100}$', 'g'
-  // espace ne fonctionne pas
-
   );
 
   let testAddress = addressRegExp.test(inputAddress.value);
@@ -87,14 +85,14 @@ const validAddress = function(inputAddress){
       
   };
 
-   ////// ville /////
+   ////// city /////
 
 form.city.addEventListener('change', function(){
   validCity(this);
 });
 
 const validCity = function(inputCity){
-  //création de la regExp pour validation email
+  //creation regExp city //
   let cityRegExp = new RegExp (
   '^[a-zA-Z-]{2,40}$', 'g'
 
@@ -119,17 +117,10 @@ form.email.addEventListener('change', function(){
 });
 
 const validEmail = function(inputEmail){
-  //création de la regExp pour validation email
+ //creation regExp email //
   let emailRegExp = new RegExp (
   '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 'g'
-  //^ensemble de caractère de a à z + maj ok + nombre 0 à 9 et des points et des underscores et des tirets
-  //"+" on peut en écrire plusieurs - fin des premiers crochets = première partie email
-  //@ à retrouver/ combien de fois ? 1 fois
-  //on recommence...caractères nombre etc...
-  // le point et qu'un seul
-  //a-z en minuscule et deux lettres min et 10max
-  //un marqueur : soit un deuxième paramètres (ou flag) : comment lire ce regExp
-  //'g' lecture de manière global
+
   );
 
   let testEmail = emailRegExp.test(inputEmail.value);
@@ -152,7 +143,8 @@ const validEmail = function(inputEmail){
       && validAddress(form.address) 
       && validCity(form.city)
       && validEmail(form.email)){
-//GET ID'S + CONTACT
+
+// get ID'S + CONTACT //
         let contactForm ={
           firstName : firstName.value,
           lastName: lastName.value,
@@ -161,8 +153,6 @@ const validEmail = function(inputEmail){
           email: email.value
         }
         let basket = JSON.parse(localStorage.getItem("basket"))
-        //basket = {[name: "blabla", quantity : 2, color: "rouge"]
-        //  [name: "tictac", quantity : 1, color: "bleu"]}
         let products = []
         for (let i = 0; i < basket.length; i++) {
           const product = basket[i];
@@ -177,6 +167,8 @@ const validEmail = function(inputEmail){
           products: products,
         }
         console.log(body);
+
+        // sending info basket to confirmation page //
         fetch ("http://localhost:3000/api/products/order", {
           method :'POST',
           body: JSON.stringify(body),

@@ -2,6 +2,7 @@
 
 const url = new URL(location.href);
  const productId = url.searchParams.get("productId");
+ 
 
  // fetch method with the specific product Id //
    fetch("http://localhost:3000/api/products/" + productId)
@@ -21,9 +22,10 @@ const url = new URL(location.href);
         productImg.setAttribute("alt", product.altTxt);
           
         let images = document.getElementsByClassName("item__img")
-          for (let i = 0; i < images.length; i++) {
+          for (let i = 0; i < images.length; i++) { 
             const element = images[i];
             element.appendChild(productImg);  
+            
           }
 
         // product color / browsing color //
@@ -42,54 +44,52 @@ const url = new URL(location.href);
     ////////// saving basket in local storage //////////
 
 // function adding basket to local storage //
-  function saveBasket(basket){
-    localStorage.setItem("basket",JSON.stringify(basket)); // key + value = objet >> string
-      console.log(basket); 
+function saveBasket(basket){
+  localStorage.setItem("basket",JSON.stringify(basket)); // key + value = objet >> string
+    console.log(basket); 
 }
 
 // function getting basket from local storage
 function getBasket (){
-    let basket = (localStorage.getItem("basket"));
-      console.log(basket);
-    if (basket == null){
-        return []; // empty array = empty basket
-        
-    }else{
-        return JSON.parse(basket); // give a string >> objet // containing product details //
-    }
+  let basket = (localStorage.getItem("basket"));
+    console.log(basket);
+  if (basket == null){
+      return []; // empty array = empty basket
+      
+  }else{
+      return JSON.parse(basket); // give a string >> objet // containing product details //
+  }
 }
 
 // adding product //
 function addBasket (){
-    let basket = getBasket();
-      console.log(basket);
-    
-    let colorEl = document.getElementById("colors");
-    let color = colorEl.value;
-    // find method // checking  if an element of the array has same Id and same color
-    let foundProduct = basket.find(p => p.id == productId && p.color == color);
-    let quantity = document.getElementById("quantity").value;
-
-    if (foundProduct != undefined){ 
-      foundProduct.quantity += parseInt(quantity); // convert a string > to number // Allow arithmetic opperation
-
-    }else{
-      let item = {
-        id : productId, 
-        quantity : parseInt(quantity), 
-        color : color
-        
-      }
-      // add the product to basket
-      basket.push(item) 
-    }
-    // basket saved in local storage
-    saveBasket(basket);
+  let basket = getBasket();
+    console.log(basket);
   
+  let colorEl = document.getElementById("colors");
+  let color = colorEl.value;
+  // find method // checking  if an element of the array has same Id and same color
+  let foundProduct = basket.find(p => p.id == productId && p.color == color);
+  let quantity = document.getElementById("quantity").value;
+
+  if (foundProduct != undefined){ 
+    foundProduct.quantity += parseInt(quantity); // convert a string > to number // Allow arithmetic opperation
+
+  }else{
+    let item = {
+      id : productId, 
+      quantity : parseInt(quantity), 
+      color : color
+      
+    }
+    // add the product to basket
+    basket.push(item) 
+  }
+  // basket saved in local storage
+  saveBasket(basket);
+
 }
 
 // when click => play function "addBasket" //
 let btn = document.querySelector("#addToCart");
 btn.addEventListener("click", addBasket);
-
-
