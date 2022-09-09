@@ -10,6 +10,7 @@ let basket = JSON.parse(localStorage.getItem("basket"))
       let totalQuantity = 0;
         for (let i = 0; i < basket.length; i++) {
           const element = basket[i];
+          console.log(element)
           
           // fetch 
           fetch("http://localhost:3000/api/products/" + element.id)
@@ -100,9 +101,7 @@ let basket = JSON.parse(localStorage.getItem("basket"))
               cartItems.appendChild(article);
               
             })
-          }
-      
-         
+          }  
     }else{
       console.log("Le panier est vide")
     }
@@ -118,11 +117,8 @@ function saveBasket(basket){
 function removeItem(cartItem){
   let basket = JSON.parse(localStorage.getItem("basket"))
   basket = basket.filter(p => (p.id != cartItem.id || p.id == cartItem.id)  && p.color != cartItem.color);
-  
+   
   saveBasket(basket);
-
-  // refreshing price after changes //
-  window.location.reload();
 }
     
 // change quantity //
@@ -131,14 +127,25 @@ function changeQuantity(element, qtt){
   let basket = JSON.parse(localStorage.getItem("basket"))
   // find method // checking  if an element of the array has same Id and same color
   let foundProduct = basket.find(p => p.id == element.id && element.color == p.color);
-  window.location.reload();
   console.log(foundProduct);
   if (foundProduct != undefined){
     foundProduct.quantity = parseInt(qtt);
+  }
     saveBasket(basket);
   } 
 
-}
+let refreshPrice = () => {
+  let basket = JSON.parse(localStorage.getItem("basket"));
+  let totalPrice = 0;
+  for (let i = 0; i < basket.length; i++) {
+    const element = basket[i];
+      let sousTotal = element.quantity * parseFloat(element.price);
+      totalPrice += sousTotal;
+  }
+  console.log(totalPrice);
+  document.getElementById("totalPrice").textContent = totalPrice;
+} 
+
 window.onload = function() {
   //refresh  delete article //
   let deletedArticle = document.querySelectorAll(".deleteItem");
@@ -150,20 +157,25 @@ window.onload = function() {
     let cartItem = {id, color};
     console.log("basket");
     removeItem(cartItem);
-    
+    refreshPrice();
+    window.location.reload();
     })
   })
   
   let changeQuantityItem = document.querySelectorAll(".itemQuantity");
   changeQuantityItem.forEach(quantityArrow => {
-    quantityArrow.addEventListener('click', (e) => {
+    quantityArrow.addEventListener('change', (e) => {
     
     let id = e.target.getAttribute("data-id");
     let color = e.target.getAttribute("data-color");
     let item = {id, color};
-    let qtt = e.target.value
-    
+    let qtt = e.target.value;
+    if (parseInt(qtt) == 0){
+      removeItem(item);
+    }else{
       changeQuantity(item, qtt);
+    }
+      refreshPrice();
     })
   })
 }

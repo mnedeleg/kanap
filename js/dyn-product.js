@@ -25,7 +25,6 @@ const url = new URL(location.href);
           for (let i = 0; i < images.length; i++) { 
             const element = images[i];
             element.appendChild(productImg);  
-            
           }
 
         // product color / browsing color //
@@ -55,7 +54,6 @@ function getBasket (){
     console.log(basket);
   if (basket == null){
       return []; // empty array = empty basket
-      
   }else{
       return JSON.parse(basket); // give a string >> objet // containing product details //
   }
@@ -72,22 +70,25 @@ function addBasket (){
   let foundProduct = basket.find(p => p.id == productId && p.color == color);
   let quantity = document.getElementById("quantity").value;
 
-  if (foundProduct != undefined){ 
+
+  if (foundProduct != undefined) { 
     foundProduct.quantity += parseInt(quantity); // convert a string > to number // Allow arithmetic opperation
 
   }else{
+    let price = document.getElementById("price").textContent;
     let item = {
       id : productId, 
       quantity : parseInt(quantity), 
-      color : color
-      
+      color : color,
+      price : price,
     }
     // add the product to basket
-    basket.push(item) 
+    if (parseInt(quantity) > 0 && parseInt(quantity) <= 100 && color != ""){
+      basket.push(item) 
+    }
   }
   // basket saved in local storage
   saveBasket(basket);
-
 }
 
 // when click => play function "addBasket" //
