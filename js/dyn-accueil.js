@@ -8,6 +8,7 @@ fetch("http://localhost:3000/api/products")
 
       //article tag
       let articleProduct = document.createElement ("article");
+     
 
       // h3 tag
       let name = document.createElement ("h3");
@@ -36,7 +37,9 @@ fetch("http://localhost:3000/api/products")
       linkProductContainer.setAttribute("href", productLink); 
       document.getElementById("items").appendChild(linkProductContainer); 
   }
+  
 })
+
 
 
 // In case there is a problem (API, server etc...) => catch //

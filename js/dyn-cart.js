@@ -137,13 +137,20 @@ function changeQuantity(element, qtt){
 let refreshPrice = () => {
   let basket = JSON.parse(localStorage.getItem("basket"));
   let totalPrice = 0;
+  let totalQuantity = 0;
+
   for (let i = 0; i < basket.length; i++) {
     const element = basket[i];
       let sousTotal = element.quantity * parseFloat(element.price);
       totalPrice += sousTotal;
+
+      let sousTotalQuantity = element.quantity;
+      totalQuantity += sousTotalQuantity;
+              
   }
   console.log(totalPrice);
   document.getElementById("totalPrice").textContent = totalPrice;
+  document.getElementById("totalQuantity").textContent = totalQuantity;
 } 
 
 window.onload = function() {
