@@ -82,6 +82,7 @@ function addBasket (){
       color : color,
       price : price,
     }
+    window.alert("Le(s) article(s) a(ont) bien été ajouté(s)")
     // add the product to basket
     if (parseInt(quantity) > 0 && parseInt(quantity) <= 100 && color != ""){
       basket.push(item) 
