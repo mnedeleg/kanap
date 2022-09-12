@@ -168,7 +168,7 @@ const validEmail = function(inputEmail){
         let products = []
         for (let i = 0; i < basket.length; i++) {
           const product = basket[i];
-         console.log(product);
+        //  console.log(product);
          products.push(product.id);
         }
        
@@ -187,10 +187,16 @@ const validEmail = function(inputEmail){
           .then(res => res.json())
           .then(cartOrder => {
             localStorage.removeItem("basket");
-            window.location.href = "confirmation.html?orderId=" + cartOrder.orderId;
+            if (parseInt(products.quantity) == 0) {
+              window.alert("error");
+            }else{ 
+              window.location.href = "confirmation.html?orderId=" + cartOrder.orderId;
+            }
+           
           })
   
     }else{
+    
       
     }
   })

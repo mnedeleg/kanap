@@ -146,7 +146,8 @@ let refreshPrice = () => {
 
       let sousTotalQuantity = element.quantity;
       totalQuantity += sousTotalQuantity;
-              
+
+  
   }
   console.log(totalPrice);
   document.getElementById("totalPrice").textContent = totalPrice;
@@ -177,7 +178,7 @@ window.onload = function() {
     let color = e.target.getAttribute("data-color");
     let item = {id, color};
     let qtt = e.target.value;
-    if (parseInt(qtt) == 0){
+    if (parseInt(qtt) == 0 && qtt == 0){
       removeItem(item);
     }else{
       changeQuantity(item, qtt);
@@ -186,6 +187,3 @@ window.onload = function() {
     })
   })
 }
-
-
-
