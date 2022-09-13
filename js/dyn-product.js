@@ -87,7 +87,7 @@ function addBasket (){
       window.alert("Le(s) article(s) a(ont) bien été ajouté(s)");
       basket.push(item) 
     }else{
-      window.alert("Veuillez indiquer une quantité s'il vous plait");
+      window.alert("Veuillez indiquer une quantité et une couleur s'il vous plait");
     }
   }
   // basket saved in local storage

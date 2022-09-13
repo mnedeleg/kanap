@@ -170,6 +170,7 @@ window.onload = function() {
     })
   })
   
+  
   let changeQuantityItem = document.querySelectorAll(".itemQuantity");
   changeQuantityItem.forEach(quantityArrow => {
     quantityArrow.addEventListener('change', (e) => {
@@ -178,8 +179,11 @@ window.onload = function() {
     let color = e.target.getAttribute("data-color");
     let item = {id, color};
     let qtt = e.target.value;
-    if (parseInt(qtt) == 0 && qtt == 0){
+    if (parseInt(qtt) == 0){
+      window.alert("Attention, vous devez définir une quantité entre 1 et 100");
       removeItem(item);
+      location.reload();
+       
     }else{
       changeQuantity(item, qtt);
     }
