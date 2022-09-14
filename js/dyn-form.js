@@ -192,7 +192,7 @@ const validEmail = function(inputEmail){
           })
 
     }else{
-      window.alert('erroororororjkxdfsmbhqeksdgj;avelmo')
+      window.alert('Votre panier est vide, merci de bien vouloir ajouter un ou plusieurs article(s) pour pouvoir passer commande')
       
     }
   })
