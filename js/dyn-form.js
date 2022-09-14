@@ -150,33 +150,34 @@ const validEmail = function(inputEmail){
 
   form.addEventListener("submit", function(e){
     e.preventDefault();
-    if (validFirstName(form.firstName) 
-      && validLastName(form.lastName) 
-      && validAddress(form.address) 
-      && validCity(form.city)
-      && validEmail(form.email)){
+    // get ID'S + CONTACT //
+    let contactForm ={
+      firstName : firstName.value,
+      lastName: lastName.value,
+      address: address.value,
+      city: city.value,
+      email: email.value
+    }
+    let basket = JSON.parse(localStorage.getItem("basket"))
+    let products = []
+      for (let i = 0; i < basket.length; i++) {
+        const product = basket[i];
+      //  console.log(product);
+      products.push(product.id);
+      }
+    
+    let body = {
+      contact: contactForm,
+      products: products,
+    }
+    console.log(body);
 
-// get ID'S + CONTACT //
-        let contactForm ={
-          firstName : firstName.value,
-          lastName: lastName.value,
-          address: address.value,
-          city: city.value,
-          email: email.value
-        }
-        let basket = JSON.parse(localStorage.getItem("basket"))
-        let products = []
-        for (let i = 0; i < basket.length; i++) {
-          const product = basket[i];
-        //  console.log(product);
-         products.push(product.id);
-        }
-       
-        let body = {
-          contact: contactForm,
-          products: products,
-        }
-        console.log(body);
+      if (validFirstName(form.firstName) 
+        && validLastName(form.lastName) 
+        && validAddress(form.address) 
+        && validCity(form.city)
+        && validEmail(form.email)
+        && (products.length > 0)){
 
         // sending info basket to confirmation page //
         fetch ("http://localhost:3000/api/products/order", {
@@ -187,16 +188,11 @@ const validEmail = function(inputEmail){
           .then(res => res.json())
           .then(cartOrder => {
             localStorage.removeItem("basket");
-            if (parseInt(products.quantity) == 0) {
-              window.alert("error");
-            }else{ 
-              window.location.href = "confirmation.html?orderId=" + cartOrder.orderId;
-            }
-           
+            window.location.href = "confirmation.html?orderId=" + cartOrder.orderId;
           })
-  
+
     }else{
-    
+      window.alert('erroororororjkxdfsmbhqeksdgj;avelmo')
       
     }
   })

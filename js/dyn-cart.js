@@ -4,6 +4,7 @@ const loadProduct = async (element, totalPrice, totalQuantity) => {
   const cartItems = document.getElementById("cart__items");
   let res = await fetch("http://localhost:3000/api/products/" + element.id)
   let productLs = await res.json();
+  
   let sousTotal = element.quantity * parseFloat(productLs.price);
   totalPrice += sousTotal;
   document.getElementById("totalPrice").textContent = totalPrice;
@@ -59,7 +60,7 @@ const loadProduct = async (element, totalPrice, totalQuantity) => {
   quantityLabel.textContent = "Qté : ";
   cartItemSettingsQuantity.appendChild(quantityLabel);
 
-
+//adding the event listener directly //
   let quantityInput = document.createElement("input");
   quantityInput.setAttribute("type", "number");
   quantityInput.setAttribute("name", "itemQuantity");
@@ -90,6 +91,7 @@ const loadProduct = async (element, totalPrice, totalQuantity) => {
   cartItemSettingsDelete.setAttribute("class", "cart__item__content__settings__delete");
   cartItemContentSettings.appendChild(cartItemSettingsDelete);
 
+  //adding the event listener directly //
   let deleteLabel = document.createElement("p");
   deleteLabel.setAttribute("class", "deleteItem");
   deleteLabel.textContent = "Supprimer";
@@ -151,8 +153,7 @@ let refreshPrice = () => {
   document.getElementById("totalPrice").textContent = totalPrice;
   document.getElementById("totalQuantity").textContent = totalQuantity;
 } 
-// [!!!!!] Au lieu de de faire un traitement onload j'ai crée cette fonction qui serait appelé plus haut dans le then du fetch
-// const bindEvents = () => {
+
 window.onload =  () => {
   let basket = JSON.parse(localStorage.getItem("basket"))
   if (basket != undefined) { 
